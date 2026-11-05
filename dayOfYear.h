@@ -102,27 +102,28 @@ namespace YooSeoyoung2693186
 		dayOfYear operator++() 
 		{
 			++day; updateDay();            
-			return dayOfYear{month, day};
+			return *this;
 		}
 		dayOfYear operator++(int)
 		{   
 			dayOfYear temp{month, day};
-			day++; updateDay();   
+			day++; updateDay();
+			++(*this); 
 			return temp;
 		}
 
         const dayOfYear& operator++()
         {
-            return ++*this;
+            return ++(*this);
         }
         const dayOfYear& operator++(int)
         {
-            return *this++;
+            return (*this)++;
         }
 
-		dayOfYear operator+=(int *this)
+		dayOfYear operator+=(int d)
 		{
-			*this+day;
+			day += d; updateDay();
 			return *this;
 		}
 		friend bool operator==(const dayOfYear& d1, const dayOfYear& d2)
