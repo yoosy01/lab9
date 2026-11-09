@@ -25,14 +25,14 @@ namespace YooSeoyoung2693186
 				std::exit(1);
 			}
 		}
-		int updateDay()
+		void updateDay()
 		{
 			int maxDay{daysInMonth[month]};
-			if (*this > maxDay)
+			while (day > maxDay)
 			{
-				*this -= maxDay; month += 1;
+				day -= maxDay; month += 1;
 				if (month > 12) month = 1;
-                return *this;
+				maxDay = daysInMonth[month];
 			}
 		}
 	public:
@@ -110,16 +110,7 @@ namespace YooSeoyoung2693186
 			day++; updateDay();
 			++(*this); 
 			return temp;
-		}
-
-        const dayOfYear& operator++()
-        {
-            return ++(*this);
-        }
-        const dayOfYear& operator++(int)
-        {
-            return (*this)++;
-        }
+		} 
 
 		dayOfYear operator+=(int d)
 		{
@@ -130,7 +121,8 @@ namespace YooSeoyoung2693186
 		{
 			return d1.month == d2.month && d1.day == d2.day;
 		}
-		dayOfYear operator+(const dayOfYear& d1, const dayOfYear& d2)
+
+		friend dayOfYear operator+(const dayOfYear& d1, const dayOfYear& d2)
 		{
 			return dayOfYear{d1.month + d2.month, d1.day + d2.day};
 		}
